@@ -1,6 +1,7 @@
 package ru.arsysop.liho.check;
 
 import ru.arsysop.liho.Cashed;
+import ru.arsysop.liho.check.issues.NoSpdx;
 import ru.arsysop.liho.report.IssueType;
 
 import java.util.Collections;
@@ -12,7 +13,6 @@ import java.util.regex.Pattern;
 final class SPDXSegmentCheck implements SegmentCheck {
 
 	private final Cashed<String, Pattern> pattern;
-	private final IssueType spdx = new IssueType("", "");
 
 	SPDXSegmentCheck() {
 		pattern = new Cashed<>("(.*)SPDX-License-Identifier: (.*)", Pattern::compile);
@@ -21,7 +21,7 @@ final class SPDXSegmentCheck implements SegmentCheck {
 	public List<IssueType> analyze(String source) {
 		Matcher matcher = pattern.get().matcher(source);
 		if (!matcher.matches()) {
-			return Collections.singletonList(spdx);
+			return Collections.singletonList(new NoSpdx());
 		}
 		return Collections.emptyList();
 	}

@@ -2,7 +2,7 @@ package ru.arsysop.liho.file;
 
 import ru.arsysop.liho.Cashed;
 
-public final class FileExtension implements Extension {
+public final class FileExtension extends Extension {
 	private final Cashed<String, String> extension;
 
 	public FileExtension(String path) {

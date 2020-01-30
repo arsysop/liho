@@ -1,6 +1,7 @@
 package ru.arsysop.liho.file;
 
-public class PredefinedExtension implements Extension{
+public final class PredefinedExtension extends Extension{
+
 	private final String extension;
 
 	public PredefinedExtension(String extension) {
@@ -11,4 +12,5 @@ public class PredefinedExtension implements Extension{
 	public String get() {
 		return extension;
 	}
+
 }
