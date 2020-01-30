@@ -7,7 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-public class FileFromPath implements File {
+public final class FileFromPath implements File {
+	
 	private final Path path;
 	private final Cashed<Path, Extension> extension;
 	private final Cashed<Path, String> name;
