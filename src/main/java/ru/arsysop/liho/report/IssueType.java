@@ -2,12 +2,12 @@ package ru.arsysop.liho.report;
 
 import java.util.Objects;
 
-public final class IssueType {
+public abstract class IssueType {
 
 	private final String id;
 	private final String description;
 
-	public IssueType(String id, String description) {
+	protected IssueType(String id, String description) {
 		Objects.requireNonNull(id);
 		Objects.requireNonNull(description);
 		this.id = id;
@@ -22,4 +22,18 @@ public final class IssueType {
 		return description;
 	}
 
+	@Override
+	public int hashCode() {
+		return id.hashCode() + description.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!IssueType.class.isInstance(obj)){
+			return false;
+		}
+		IssueType another = (IssueType) obj;
+		return id.equals(another.id) && description.equals(another.description);
+	}
+	
 }
