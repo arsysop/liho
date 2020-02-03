@@ -1,3 +1,15 @@
+/********************************************************************************
+ * Copyright (c) 2020 ArSysOp
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0/.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *   ArSysOp - initial API and implementation
+ ********************************************************************************/
 package ru.arsysop.liho;
 
 import ru.arsysop.liho.file.File;
@@ -12,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public final class TestResource {
+
 	private final Cashed<String, File> file;
 	private final Cashed<String, Path> path;
 
@@ -46,6 +59,5 @@ public final class TestResource {
 		assumeTrue(resource != null);
 		return resource;
 	}
-
 
 }
