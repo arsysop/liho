@@ -3,6 +3,7 @@
 
 [![Build](https://github.com/arsysop/liho/workflows/Java%20CI/badge.svg)](https://github.com/arsysop/liho/actions?query=workflow%3A%22Java+CI%22)
 [![Hits-of-Code](https://hitsofcode.com/github/arsysop/liho)](https://hitsofcode.com/view/github/arsysop/liho)
+[![codecov](https://codecov.io/gh/arsysop/liho/branch/master/graph/badge.svg)](https://codecov.io/gh/arsysop/liho)
 
 [![EPL-2.0 License](https://img.shields.io/badge/License-EPL--2.0-brightgreen.svg)](https://github.com/arsysop/liho/blob/master/LICENSE)
 
