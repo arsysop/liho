@@ -17,7 +17,7 @@ import ru.arsysop.liho.check.issues.NoSpdx;
 import ru.arsysop.liho.report.IssueType;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,12 +30,12 @@ final class SPDXSegmentCheck implements SegmentCheck {
 		pattern = new Cashed<>("(.*)SPDX-License-Identifier: (.*)", Pattern::compile);
 	}
 
-	public List<IssueType> analyze(String source) {
+	public Set<IssueType> analyze(String source) {
 		Matcher matcher = pattern.get().matcher(source);
 		if (!matcher.matches()) {
-			return Collections.singletonList(new NoSpdx());
+			return Collections.singleton(new NoSpdx());
 		}
-		return Collections.emptyList();
+		return Collections.emptySet();
 	}
 
 }

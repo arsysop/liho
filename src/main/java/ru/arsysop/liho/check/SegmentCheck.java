@@ -14,10 +14,10 @@ package ru.arsysop.liho.check;
 
 import ru.arsysop.liho.report.IssueType;
 
-import java.util.List;
+import java.util.Set;
 
 public interface SegmentCheck {
 
-	List<IssueType> analyze(String source);
+	Set<IssueType> analyze(String source);
 
 }

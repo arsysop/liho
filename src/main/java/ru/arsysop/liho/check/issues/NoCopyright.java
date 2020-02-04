@@ -17,7 +17,8 @@ import ru.arsysop.liho.report.IssueType;
 public final class NoCopyright extends IssueType {
 
 	public NoCopyright() {
-		super("no-copyright", "There is no `Copyright (c)` statement");
+		super("no-copyright", "There is no `Copyright (c)` statement. There should be a line of the following structure: \n" +
+				"Copyright (c) {year}[, {year}] {owner}[ and others]");
 	}
 
 }
