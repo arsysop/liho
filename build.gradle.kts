@@ -12,6 +12,7 @@
  ********************************************************************************/
 plugins {
     java
+    jacoco
 }
 
 group = "ru.arsysop.liho"
@@ -34,4 +35,17 @@ configure<JavaPluginConvention> {
 
 tasks.withType(Test::class) {
     useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+tasks.jacocoTestReport {
+    reports {
+        csv.isEnabled = false
+        html.isEnabled = false
+        xml.isEnabled = true
+        xml.destination = file("${buildDir}/test-coverage.xml")
+    }
 }
