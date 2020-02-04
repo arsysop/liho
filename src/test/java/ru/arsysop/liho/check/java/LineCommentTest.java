@@ -66,8 +66,4 @@ class LineCommentTest {
 		assertTrue(engine.body().isEmpty());
 	}
 
-	// test no action on blank input
-	// test failure on completed -> update
-	// this is a contract testing: use Jupiter Test interface
-
 }
