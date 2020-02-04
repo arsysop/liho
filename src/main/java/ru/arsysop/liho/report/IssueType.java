@@ -14,6 +14,11 @@ package ru.arsysop.liho.report;
 
 import java.util.Objects;
 
+/**
+ * Data-value class covers {@code validation issue} meta information.
+ *
+ * @since 0.1
+ */
 public abstract class IssueType {
 
 	private final String id;
@@ -26,10 +31,19 @@ public abstract class IssueType {
 		this.description = description;
 	}
 
+	/**
+	 * @return unique, white-space character free, but yet readable identifier of the issue
+	 * @since 0.1
+	 */
 	public String id() {
 		return id;
 	}
 
+	/**
+	 * @return wide description. Can be multiline, can be empty. Cannot be {@code null}. Intended to be exposed in UI,
+	 * thus can contain internationalised value.
+	 * @since 0.1
+	 */
 	public String description() {
 		return description;
 	}
@@ -41,11 +55,11 @@ public abstract class IssueType {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(!IssueType.class.isInstance(obj)){
+		if (!IssueType.class.isInstance(obj)) {
 			return false;
 		}
 		IssueType another = (IssueType) obj;
 		return id.equals(another.id) && description.equals(another.description);
 	}
-	
+
 }
