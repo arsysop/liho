@@ -43,7 +43,7 @@ public abstract class CommentSearchEngine {
 	 * @since 0.1
 	 */
 
-	public void update(String source) {
+	public final void update(String source) {
 		Objects.requireNonNull(source);
 		String line = source.trim();
 		if (line.isEmpty()) {
@@ -58,11 +58,11 @@ public abstract class CommentSearchEngine {
 	}
 
 	/**
-	 * @return indicator of if the engine has already recognised the end of the comment block under processing or if it is
-	 * still gathering comment content pieces (is updatable).
-	 * @since
+	 * @return indicator of if the engine has already recognised the end of the comment block under processing or if it
+	 * is still gathering comment content pieces (is updatable).
+	 * @since 0.1
 	 */
-	public boolean complete() {
+	public final boolean complete() {
 		return completed.get();
 	}
 
@@ -70,7 +70,7 @@ public abstract class CommentSearchEngine {
 	 * @return all comment content pieces collected to the moment
 	 * @since 0.1
 	 */
-	public List<String> body() {
+	public final List<String> body() {
 		return trimLast(
 				content.stream()
 						.map(String::trim)
@@ -106,12 +106,34 @@ public abstract class CommentSearchEngine {
 		}
 	}
 
+	/**
+	 * @param line input line that possibly can update {@code content} state
+	 * @return {@code true} if the {@code line} starts a comment block, {@code false} otherwise
+	 * @since 0.1
+	 */
 	protected abstract boolean start(String line);
 
+	/**
+	 * @param line input line that possibly can update {@code content} state
+	 * @return {@code true} if the {@code line} ends a comment block, {@code false} otherwise
+	 * @since 0.1
+	 */
 	protected abstract boolean end(String line);
 
+	/***
+	 * In vast majority of comment cases we cannot detect if the comment ends until something foreign is found.
+	 * In these cases this last (foreign) line ends the comment block, but itself must not be included
+	 * in the comment content.
+	 * @return {@code true} if {@code end line} belongs to the comment content and {@code false} otherwise
+	 */
 	protected abstract boolean includeLast();
 
+	/**
+	 * Free a content line of comment-symbols, if any
+	 *
+	 * @param line content line
+	 * @since 0.1
+	 */
 	protected abstract String strip(String line);
 
 }

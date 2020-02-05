@@ -19,12 +19,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public abstract class HeadingComment implements Comment {
-
+public final class HeadingComment implements Comment {
+	private final File file;
 	private final List<CommentSearchEngine> engines;
 
-	protected HeadingComment(List<CommentSearchEngine> engines) {
+	public HeadingComment(File file, List<CommentSearchEngine> engines) {
+		Objects.requireNonNull(file);
 		Objects.requireNonNull(engines);
+		this.file = file;
 		if (engines.isEmpty()) {
 			throw new IllegalArgumentException("There is no way we'll find any header without comment search engine");
 		}
@@ -32,16 +34,22 @@ public abstract class HeadingComment implements Comment {
 	}
 
 	@Override
-	public List<String> get(File file) throws IOException {
+	public final List<String> get() throws IOException {
 		return comment(file.lines());
 	}
 
+	@Override
+	public final File owner() {
+		return file;
+	}
+
 	private List<String> comment(Stream<String> lines) {
+		//noinspection ResultOfMethodCallIgnored
 		lines
 				.filter(this::hasContent)
 				.peek(this::updateEngines)
 				.filter(any -> allOver()) // just stop pulling lines from a file to avoid the whole file reading
-				.findFirst(); // the first foreign line for all engines
+				.findFirst(); // the first foreign line for all engines stops the file reading
 		return harvest();
 	}
 

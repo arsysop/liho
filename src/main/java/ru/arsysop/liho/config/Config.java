@@ -12,7 +12,7 @@
  ********************************************************************************/
 package ru.arsysop.liho.config;
 
-public class Config {
+public final class Config {
 	// {owner, sources owned}*
 	// min inception year
 	// contributors?

@@ -26,8 +26,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CopyrightSegmentCheckTest {
 
 	@Test
-	void noCopyright() {
-		assertEquals(Collections.singleton(new NoCopyright()), new CopyrightSegmentCheck().analyze(""));
+	void noCopyrightOnEmpty() {
+		assertEquals(Collections.singleton(new NoCopyright()),
+				new CopyrightSegmentCheck().analyze(""));
+	}
+
+	@Test
+	void noCopyrightOnForeignString() {
+		assertEquals(Collections.singleton(new NoCopyright()),
+				new CopyrightSegmentCheck().analyze("Do not trouble trouble until trouble troubles you"));
 	}
 
 	@Test
