@@ -20,7 +20,6 @@ class HeadingCommentContractTest {
 				new HeadingComment(new TestResource("A.java").file(), null));
 	}
 
-
 	@Test
 	void requiresNotEmptyEngines() {
 		Assertions.assertThrows(IllegalArgumentException.class, () ->
