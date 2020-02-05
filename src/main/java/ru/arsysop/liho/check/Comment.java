@@ -17,13 +17,19 @@ import ru.arsysop.liho.file.File;
 import java.io.IOException;
 import java.util.List;
 
-public interface Comment  {
+/**
+ * Comment build of a file of a particular type.
+ *
+ * @since 0.1
+ */
+public interface Comment {
+
+	File owner(); // todo: this is ugly. redesign to eliminate.
 
 	/**
-	 * @param file description of a file to check. Cannot be {@code null}
-	 * @return a sign if the {@linkplain Comment} can extract header from the file described or not
+	 * @return line-by-line comment content
+	 * @throws IOException in case of any file system misbehaviour on a file operation
+	 * @since 0.1
 	 */
-	boolean compatibleWith(File file);
-
-	List<String> get(File file) throws IOException;
+	List<String> get() throws IOException;
 }

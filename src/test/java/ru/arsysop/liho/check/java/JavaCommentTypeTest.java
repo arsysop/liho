@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class JavaCommentTest {
+class JavaCommentTypeTest {
 
 	private final String fullFeatherComment = "*****************************************************************************\n" +
 			"Copyright (c) 2018, 2020 ArSysOp\n" +
@@ -38,7 +38,7 @@ class JavaCommentTest {
 	@Test
 	@DisplayName("applicable to a java source file")
 	void applicable() {
-		assertTrue(new JavaComment().compatibleWith(
+		assertTrue(new JavaCommentType().compatibleWith(
 				new TestResource("A.java").file()));
 	}
 
@@ -48,7 +48,7 @@ class JavaCommentTest {
 		assertEquals(
 				fullFeatherComment,
 				String.join("\n",
-						new JavaComment().get(new TestResource("A.java").file())));
+						new JavaCommentType().comment(new TestResource("A.java").file()).get()));
 	}
 
 	@Test
@@ -57,7 +57,7 @@ class JavaCommentTest {
 		assertEquals(
 				fullFeatherComment,
 				String.join("\n",
-						new JavaComment().get(new TestResource("ALine.java").file())));
+						new JavaCommentType().comment(new TestResource("ALine.java").file()).get()));
 	}
 
 }

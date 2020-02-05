@@ -24,6 +24,15 @@ public final class IssueLocation {
 		this.line = line;
 	}
 
+	/**
+	 * General file issues (like {@code file is not accessible}) do not have line positioning.
+	 *
+	 * @param file
+	 */
+	public IssueLocation(Path file) {
+		this(file, -1);
+	}
+
 	public Path file() {
 		return file;
 	}
