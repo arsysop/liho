@@ -12,7 +12,7 @@
  ********************************************************************************/
 package ru.arsysop.liho.file;
 
-public final class PredefinedExtension extends Extension{
+public final class PredefinedExtension extends Extension {
 
 	private final String extension;
 
