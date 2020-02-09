@@ -10,4 +10,12 @@ public final class Issue {
 		this.location = location;
 	}
 
+	public IssueType type() {
+		return type;
+	}
+
+	public IssueLocation location() {
+		return location;
+	}
+
 }

@@ -23,8 +23,7 @@ import java.util.function.Supplier;
  * </p>
  *
  * <p>
- * Seat of mutability caused by prohibition of any calculation in a ctor and
- * cashing.
+ * Seat of mutability caused by prohibition of any calculation in a ctor and cashing.
  * </p>
  *
  * <p>
@@ -55,24 +54,23 @@ import java.util.function.Supplier;
  *
  * <h3>Sample</h3>
  * <h4>1: final field initialization</h4>
- * 
+ *
  * <pre>
- * private final Cashed<Categories> categories = 
+ * private final Cashed<Categories> categories =
  * 	new Cashed(source, array -> array.map ( element -> new Category((JSONObject)element) ))
  * </pre>
- * 
+ *
  * <h4>2: value retrieval</h4>
- * 
+ *
  * <pre>
- *  
+ *
  * Category byId(String id) {
- *	return categories.get().find (category -> category.id() == id }
+ * 	return categories.get().find (category -> category.id() == id }
  * }
  * </pre>
- * 
+ *
  * @param S type of data source object
  * @param T type of data retrieved and cashed
- * 
  * @since 0.1
  */
 public final class Cashed<S, T> implements Supplier<T> {
