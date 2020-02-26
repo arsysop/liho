@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public abstract class CommentSearchEngine {
 	private final AtomicBoolean found = new AtomicBoolean(false);
 	private final AtomicBoolean completed = new AtomicBoolean(false);
-	private final List<String> content = new ArrayList<>();
+	private final List<CommentLine> content = new ArrayList<>();
 
 	/**
 	 * <p>Update engine state with the next file line.</p>
@@ -41,9 +41,8 @@ public abstract class CommentSearchEngine {
 	 * @throws IllegalStateException on {@code update} attempt for {@code completed} engine
 	 * @throws NullPointerException  if input source is {@code null}
 	 * @since 0.1
-	 */
-
-	public final void update(String source) {
+	 *///todo: position
+	public final void update(String source, int position) {
 		Objects.requireNonNull(source);
 		String line = source.trim();
 		if (line.isEmpty()) {
@@ -53,7 +52,7 @@ public abstract class CommentSearchEngine {
 			throw new IllegalStateException("Cannot update state after it's completed");
 		}
 		updateFound(line); // TODO: redesign to avoid temporal coupling here. vertical delegation?
-		updateContent(line);
+		updateContent(line, position);
 		updateCompleted(line);
 	}
 
@@ -70,16 +69,15 @@ public abstract class CommentSearchEngine {
 	 * @return all comment content pieces collected to the moment
 	 * @since 0.1
 	 */
-	public final List<String> body() {
+	public final List<CommentLine> body() {
 		return trimLast(
 				content.stream()
-						.map(String::trim)
-						.map(this::strip)
-						.filter(line -> !line.isEmpty())
+						.map(cl -> new CommentLine(strip(cl.content().trim()), cl.position()))
+						.filter(CommentLine::notEmpty)
 						.collect(Collectors.toList()));
 	}
 
-	private List<String> trimLast(List<String> body) {
+	private List<CommentLine> trimLast(List<CommentLine> body) {
 		if (found.get() && complete() && !includeLast()) {
 			body.remove(body.size() - 1);
 		}
@@ -100,9 +98,9 @@ public abstract class CommentSearchEngine {
 		}
 	}
 
-	private void updateContent(String line) {
+	private void updateContent(String line, int position) {
 		if (found.get() && !completed.get()) {
-			content.add(line);
+			content.add(new CommentLine(line, position));
 		}
 	}
 

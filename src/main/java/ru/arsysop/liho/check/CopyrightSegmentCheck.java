@@ -17,7 +17,6 @@ import ru.arsysop.liho.check.issues.*;
 import ru.arsysop.liho.report.IssueType;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -33,10 +32,10 @@ final class CopyrightSegmentCheck implements SegmentCheck {
 		pattern = new Cashed<>("(.*)Copyright \\(c\\)\\s+(\\d+)(,\\s+(\\d+))?\\s+(.*)", Pattern::compile);
 	}
 
-	public Set<IssueType> analyze(String source) {
+	public AnalysisResult analyze(String source) {
 		Matcher matcher = pattern.get().matcher(source);
 		if (!matcher.matches()) {
-			return Collections.singleton(new NoCopyright());
+			return new AnalysisResult.NotFound();
 		}
 		Set<IssueType> issues = new HashSet<>();
 		analyzePrequel(matcher.group(1), issues::add);
@@ -44,7 +43,10 @@ final class CopyrightSegmentCheck implements SegmentCheck {
 		analyzeUpdateYear(Optional.ofNullable(matcher.group(4)), // null can legally come from RegexAPI
 				matcher.group(2), issues::add);
 		analyzeOwner(matcher.group(5), issues::add);
-		return issues;
+		if (issues.isEmpty()) {
+			return new AnalysisResult.Ok();
+		}
+		return new AnalysisResult.Issues(issues);
 	}
 
 	private void analyzePrequel(String prequel, Consumer<IssueType> complain) {

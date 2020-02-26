@@ -17,6 +17,7 @@ import ru.arsysop.liho.file.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public final class HeadingComment implements Comment {
@@ -34,7 +35,7 @@ public final class HeadingComment implements Comment {
 	}
 
 	@Override
-	public final List<String> get() throws IOException {
+	public final List<CommentLine> content() throws IOException {
 		return comment(file.lines());
 	}
 
@@ -43,11 +44,13 @@ public final class HeadingComment implements Comment {
 		return file;
 	}
 
-	private List<String> comment(Stream<String> lines) {
+	private List<CommentLine> comment(Stream<String> lines) {
+		AtomicInteger position = new AtomicInteger(0);
 		//noinspection ResultOfMethodCallIgnored
 		lines
+				.peek(line -> position.incrementAndGet())
 				.filter(this::hasContent)
-				.peek(this::updateEngines)
+				.peek(line -> updateEngines(line, position.get()))
 				.filter(any -> allOver()) // just stop pulling lines from a file to avoid the whole file reading
 				.findFirst(); // the first foreign line for all engines stops the file reading
 		return harvest();
@@ -57,17 +60,17 @@ public final class HeadingComment implements Comment {
 		return !line.trim().isEmpty();
 	}
 
-	private void updateEngines(String line) {
+	private void updateEngines(String line, int position) {
 		engines.stream()
 				.filter(e -> !e.complete())
-				.forEach(e -> e.update(line));
+				.forEach(e -> e.update(line, position));
 	}
 
 	private boolean allOver() {
 		return engines.stream().allMatch(CommentSearchEngine::complete);
 	}
 
-	private List<String> harvest() {
+	private List<CommentLine> harvest() {
 		//noinspection OptionalGetWithoutIsPresent - is not possible by design
 		return engines.stream()
 				.map(CommentSearchEngine::body)

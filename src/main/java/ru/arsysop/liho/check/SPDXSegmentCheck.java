@@ -30,12 +30,12 @@ final class SPDXSegmentCheck implements SegmentCheck {
 		pattern = new Cashed<>("(.*)SPDX-License-Identifier: (.*)", Pattern::compile);
 	}
 
-	public Set<IssueType> analyze(String source) {
+	public AnalysisResult analyze(String source) {
 		Matcher matcher = pattern.get().matcher(source);
 		if (!matcher.matches()) {
-			return Collections.singleton(new NoSpdx());
+			return new AnalysisResult.NotFound();
 		}
-		return Collections.emptySet();
+		return new AnalysisResult.Ok();
 	}
 
 }

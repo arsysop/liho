@@ -16,8 +16,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import ru.arsysop.liho.TestResource;
+import ru.arsysop.liho.check.CommentLine;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,19 +47,19 @@ class JavaCommentTypeTest {
 	@Test
 	@DisplayName("full feather block comment")
 	void blockComment() throws IOException {
-		assertEquals(
-				fullFeatherComment,
-				String.join("\n",
-						new JavaCommentType().comment(new TestResource("A.java").file()).get()));
+		assertEquals(fullFeatherComment, commentFromFile("A.java"));
 	}
 
 	@Test
 	@DisplayName("full feather line comment")
 	void lineComment() throws IOException {
-		assertEquals(
-				fullFeatherComment,
-				String.join("\n",
-						new JavaCommentType().comment(new TestResource("ALine.java").file()).get()));
+		assertEquals(fullFeatherComment, commentFromFile("ALine.java"));
 	}
 
+	private String commentFromFile(String file) throws IOException {
+		return new JavaCommentType().comment(
+				new TestResource(file).file()).content().stream()
+				.map(CommentLine::content)
+				.collect(Collectors.joining("\n"));
+	}
 }

@@ -13,6 +13,7 @@
 package ru.arsysop.liho.check.java;
 
 import org.junit.jupiter.api.Test;
+import ru.arsysop.liho.check.CommentLine;
 import ru.arsysop.liho.check.CommentSearchEngine;
 
 import java.util.Collections;
@@ -30,22 +31,22 @@ class LineCommentTest {
 				" //\t",
 				"package p; "
 		};
-		List<String> expectedBody = Collections.singletonList("separate line");
+		List<CommentLine> expectedBody = Collections.singletonList(new CommentLine("separate line", 2));
 		CommentSearchEngine engine = new LineComment();
 
-		engine.update(source[0]);
+		engine.update(source[0], 1);
 		assertFalse(engine.complete());
 		assertTrue(engine.body().isEmpty());
 
-		engine.update(source[1]);
+		engine.update(source[1], 2);
 		assertFalse(engine.complete());
 		assertEquals(expectedBody, engine.body());
 
-		engine.update(source[2]);
+		engine.update(source[2], 3);
 		assertFalse(engine.complete());
 		assertEquals(expectedBody, engine.body());
 
-		engine.update(source[3]);
+		engine.update(source[3], 4);
 		assertTrue(engine.complete());
 		assertEquals(expectedBody, engine.body());
 	}
@@ -53,15 +54,15 @@ class LineCommentTest {
 	@Test
 	void singleLine() {
 		CommentSearchEngine engine = new LineComment();
-		engine.update("\t//  single line  \t  ");
+		engine.update("\t//  single line  \t  ", 1);
 		assertFalse(engine.complete());
-		assertEquals(Collections.singletonList("single line"), engine.body());
+		assertEquals(Collections.singletonList(new CommentLine("single line", 1)), engine.body());
 	}
 
 	@Test
 	void blockComment() {
 		CommentSearchEngine engine = new LineComment();
-		engine.update(" \t /*  unexpected format  */");
+		engine.update(" \t /*  unexpected format  */", 1);
 		assertTrue(engine.complete());
 		assertTrue(engine.body().isEmpty());
 	}

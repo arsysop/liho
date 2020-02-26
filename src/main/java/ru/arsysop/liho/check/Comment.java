@@ -24,12 +24,12 @@ import java.util.List;
  */
 public interface Comment {
 
-	File owner(); // todo: this is ugly. redesign to eliminate.
+	File owner();
 
 	/**
 	 * @return line-by-line comment content
 	 * @throws IOException in case of any file system misbehaviour on a file operation
 	 * @since 0.1
 	 */
-	List<String> get() throws IOException;
+	List<CommentLine> content() throws IOException;
 }

@@ -12,12 +12,8 @@
  ********************************************************************************/
 package ru.arsysop.liho.check;
 
-import ru.arsysop.liho.report.IssueType;
-
-import java.util.Set;
-
 public interface SegmentCheck {
 
-	Set<IssueType> analyze(String source);
+	AnalysisResult analyze(String source);
 
 }
