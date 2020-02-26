@@ -1,32 +1,22 @@
 package ru.arsysop.liho.check;
 
 import ru.arsysop.liho.check.issues.NoCopyright;
-import ru.arsysop.liho.report.Issue;
+import ru.arsysop.liho.file.File;
 import ru.arsysop.liho.report.IssueType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+final class CopyrightHeaderChecks extends BaseHeaderChecks {
 
-public final class CopyrightHeaderChecks {
-	private final CopyrightSegmentCheck copyright;
-	private final List<Issue> issues = new ArrayList<>();
-
-	public CopyrightHeaderChecks() {
-		this.copyright = new CopyrightSegmentCheck();
+	CopyrightHeaderChecks(File file) {
+		super(file, new CopyrightSegmentCheck());
 	}
 
-	void update(CommentLine line){
-		AnalysisResult result = copyright.analyze(line.content());
-		if(result.found()){
-
-		}
+	@Override
+	public IssueType no() {
+		return new NoCopyright();
 	}
 
-	public boolean satisfied() {
-		return false;
+	@Override
+	public IssueType duplicate() {
+		return null;
 	}
-
-
 }

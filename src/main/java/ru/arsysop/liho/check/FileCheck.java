@@ -11,15 +11,24 @@ import java.util.List;
 public final class FileCheck {
 
 	private final HeadingComment comment;
-	private final List<SegmentCheck> checks;
+	private final List<SegmentChecks> checks;
 
-	public FileCheck(HeadingComment comment, List<SegmentCheck> checks) {
+	public FileCheck(HeadingComment comment, List<SegmentChecks> checks) {
 		this.comment = comment;
 		this.checks = checks;
 	}
 
 	public void analyze(Report report) throws IOException {
-		comment.content().forEach(line -> checks.forEach(check -> check.analyze(line.content())));
+		update();
+		report(report);
+	}
+
+	private void update() throws IOException {
+		comment.content().forEach(line -> checks.forEach(ch -> ch.update(line)));
+	}
+
+	private void report(Report report) {
+		checks.forEach(ch -> ch.reportIssues(report));
 	}
 
 	private List<CommentLine> source(Report report) {

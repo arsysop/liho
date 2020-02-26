@@ -7,10 +7,22 @@ import java.util.Objects;
 import java.util.Set;
 
 abstract class AnalysisResult {
+	private final boolean found;
+	private final Set<IssueType> issues;
 
-	abstract boolean found();
+	protected AnalysisResult(boolean found, Set<IssueType> issues) {
+		Objects.requireNonNull(issues);
+		this.found = found;
+		this.issues = issues;
+	}
 
-	abstract Set<IssueType> issues();
+	public final boolean found() {
+		return found;
+	}
+
+	public final Set<IssueType> issues() {
+		return issues;
+	}
 
 	@Override
 	public boolean equals(Object another) {
@@ -18,7 +30,7 @@ abstract class AnalysisResult {
 			return false;
 		}
 		AnalysisResult result = (AnalysisResult) another;
-		return found() == result.found() && issues().equals(result.issues());
+		return found == result.found && issues.equals(result.issues);
 	}
 
 	@Override
@@ -28,48 +40,24 @@ abstract class AnalysisResult {
 
 	final static class NotFound extends AnalysisResult {
 
-		@Override
-		public boolean found() {
-			return false;
-		}
-
-		@Override
-		public Set<IssueType> issues() {
-			return Collections.emptySet();
+		NotFound() {
+			super(false, Collections.emptySet());
 		}
 
 	}
 
 	final static class Ok extends AnalysisResult {
 
-		@Override
-		public boolean found() {
-			return true;
-		}
-
-		@Override
-		public Set<IssueType> issues() {
-			return Collections.emptySet();
+		Ok() {
+			super(true, Collections.emptySet());
 		}
 
 	}
 
 	final static class Issues extends AnalysisResult {
 
-		private final Set<IssueType> issues;
-
-		public Issues(Set<IssueType> issues) {
-			this.issues = issues;
-		}
-
-		@Override
-		public boolean found() {
-			return true;
-		}
-
-		@Override
-		public Set<IssueType> issues() {
-			return issues;
+		Issues(Set<IssueType> issues) {
+			super(true, issues);
 		}
 
 	}
