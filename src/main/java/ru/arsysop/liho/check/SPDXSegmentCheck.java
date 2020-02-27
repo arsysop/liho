@@ -13,11 +13,7 @@
 package ru.arsysop.liho.check;
 
 import ru.arsysop.liho.Cashed;
-import ru.arsysop.liho.check.issues.NoSpdx;
-import ru.arsysop.liho.report.IssueType;
 
-import java.util.Collections;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

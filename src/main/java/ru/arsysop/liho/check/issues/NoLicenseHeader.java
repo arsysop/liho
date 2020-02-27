@@ -10,18 +10,18 @@
  * Contributors:
  *   ArSysOp - initial API and implementation
  ********************************************************************************/
-package ru.arsysop.liho.check;
+package ru.arsysop.liho.check.issues;
 
 import ru.arsysop.liho.report.IssueType;
-import ru.arsysop.liho.report.Report;
 
-interface SegmentChecks {
+public final class NoLicenseHeader extends IssueType {
 
-	void update(CommentLine line);
+	public NoLicenseHeader() {
+		super(
+				"no-license-header",
+				"There is no License header. " +
+						"It should be a heading comment block declaring copyright and licenses. " +
+						"For more details see https://www.eclipse.org/projects/handbook/#ip-copyright-headers");
+	}
 
-	void reportIssues(Report report);
-
-	IssueType no();
-
-	IssueType duplicate();
 }

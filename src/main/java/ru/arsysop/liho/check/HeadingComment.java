@@ -15,6 +15,7 @@ package ru.arsysop.liho.check;
 import ru.arsysop.liho.file.File;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -71,11 +72,11 @@ public final class HeadingComment implements Comment {
 	}
 
 	private List<CommentLine> harvest() {
-		//noinspection OptionalGetWithoutIsPresent - is not possible by design
 		return engines.stream()
 				.map(CommentSearchEngine::body)
 				.filter(c -> !c.isEmpty())
-				.findFirst().get();
+				.findFirst()
+				.orElseGet(Collections::emptyList);
 	}
 
 }
