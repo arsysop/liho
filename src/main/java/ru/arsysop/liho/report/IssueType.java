@@ -62,4 +62,9 @@ public abstract class IssueType {
 		return id.equals(another.id) && description.equals(another.description);
 	}
 
+	@Override
+	public String toString() {
+		return String.format("[%s] %s", id, description);
+	}
+
 }

@@ -13,6 +13,7 @@
 package ru.arsysop.liho.report;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 public final class IssueLocation {
 
@@ -39,6 +40,26 @@ public final class IssueLocation {
 
 	public int line() {
 		return line;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!getClass().isInstance(obj)) {
+			return false;
+		}
+		IssueLocation location = (IssueLocation) obj;
+		return file.toAbsolutePath().toString().equalsIgnoreCase(location.file.toAbsolutePath().toString())
+				&& (line == location.line);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(file.toAbsolutePath(), line);
+	}
+
+	@Override
+	public String toString() {
+		return file.toAbsolutePath() + ", line " + line;
 	}
 
 }
