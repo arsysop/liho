@@ -12,7 +12,7 @@
  ********************************************************************************/
 package ru.arsysop.liho.file;
 
-import ru.arsysop.liho.Cashed;
+import ru.arsysop.liho.Cached;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,15 +22,15 @@ import java.util.stream.Stream;
 public final class FileFromPath implements File {
 
 	private final Path path;
-	private final Cashed<Path, Extension> extension;
-	private final Cashed<Path, String> name;
-	private final Cashed<Path, Path> folder;
+	private final Cached<Path, Extension> extension;
+	private final Cached<Path, String> name;
+	private final Cached<Path, Path> folder;
 
 	public FileFromPath(Path path) {
 		this.path = path;
-		extension = new Cashed<>(path, this::extensionFromPath);
-		name = new Cashed<>(path, this::nameFromPath);
-		folder = new Cashed<>(path, this::folderFromPath);
+		extension = new Cached<>(path, this::extensionFromPath);
+		name = new Cached<>(path, this::nameFromPath);
+		folder = new Cached<>(path, this::folderFromPath);
 	}
 
 	@Override

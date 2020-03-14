@@ -73,13 +73,13 @@ import java.util.function.Supplier;
  * @param T type of data retrieved and cashed
  * @since 0.1
  */
-public final class Cashed<S, T> implements Supplier<T> {
+public final class Cached<S, T> implements Supplier<T> {
 
 	private final S source;
 	private final Function<S, T> retrieve;
 	private final List<T> value = new ArrayList<T>(1);
 
-	public Cashed(S source, Function<S, T> retrieve) {
+	public Cached(S source, Function<S, T> retrieve) {
 		this.source = source;
 		this.retrieve = retrieve;
 	}

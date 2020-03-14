@@ -17,7 +17,7 @@ import ru.arsysop.liho.TestResource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FileExtensionTest {
+class FileExtensionTest {
 	@Test
 	void dataValueClass() {
 		assertEquals(new PredefinedExtension("java"),
