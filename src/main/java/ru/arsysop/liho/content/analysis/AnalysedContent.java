@@ -17,14 +17,16 @@ import ru.arsysop.liho.content.ContentLine;
 import ru.arsysop.liho.content.comment.issues.FileNotAccessible;
 import ru.arsysop.liho.content.comment.issues.NoLicenseHeader;
 import ru.arsysop.liho.report.IssueLocation;
+import ru.arsysop.liho.report.IssueType;
 import ru.arsysop.liho.report.Report;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-public final class AnalysedContent implements Consumer<Report> {
+public abstract class AnalysedContent implements Consumer<Report> {
 
 	private final Content content;
 	private final List<ContentAnalysis> checks;
@@ -61,9 +63,11 @@ public final class AnalysedContent implements Consumer<Report> {
 			return Collections.emptyList();
 		}
 		if (source.isEmpty()) {
-			report.issue(new NoLicenseHeader(), new IssueLocation(content.owner().origin(), 1));
+			report.issue(emptyContent(), new IssueLocation(content.owner().origin(), 1));
 		}
 		return source;
 	}
+
+	protected abstract  IssueType emptyContent();
 
 }

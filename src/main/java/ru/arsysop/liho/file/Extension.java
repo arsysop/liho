@@ -26,7 +26,7 @@ public abstract class Extension implements Supplier<String> {
 		if (!Extension.class.isInstance(obj)) {
 			return false;
 		}
-		return get().equals(((FileExtension) obj).get());
+		return get().equals(((Extension) obj).get());
 	}
 
 }

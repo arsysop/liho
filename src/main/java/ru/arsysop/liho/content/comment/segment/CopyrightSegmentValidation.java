@@ -12,7 +12,7 @@
  ********************************************************************************/
 package ru.arsysop.liho.content.comment.segment;
 
-import ru.arsysop.liho.Cashed;
+import ru.arsysop.liho.Cached;
 import ru.arsysop.liho.content.analysis.SegmentValidation;
 import ru.arsysop.liho.content.analysis.ValidationResult;
 import ru.arsysop.liho.content.comment.issues.*;
@@ -28,10 +28,10 @@ import java.util.regex.Pattern;
 
 final class CopyrightSegmentValidation implements SegmentValidation {
 
-	private final Cashed<String, Pattern> pattern;
+	private final Cached<String, Pattern> pattern;
 
 	CopyrightSegmentValidation() {
-		pattern = new Cashed<>("(.*)Copyright \\(c\\)\\s+(\\d+)(,\\s+(\\d+))?\\s+(.*)", Pattern::compile);
+		pattern = new Cached<>("(.*)Copyright \\(c\\)\\s+(\\d+)(,\\s+(\\d+))?\\s+(.*)", Pattern::compile);
 	}
 
 	@Override

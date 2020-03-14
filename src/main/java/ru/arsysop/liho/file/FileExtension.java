@@ -12,13 +12,13 @@
  ********************************************************************************/
 package ru.arsysop.liho.file;
 
-import ru.arsysop.liho.Cashed;
+import ru.arsysop.liho.Cached;
 
 public final class FileExtension extends Extension {
-	private final Cashed<String, String> extension;
+	private final Cached<String, String> extension;
 
 	public FileExtension(String path) {
-		this.extension = new Cashed<>(path, this::extension);
+		this.extension = new Cached<>(path, this::extension);
 	}
 
 	@Override

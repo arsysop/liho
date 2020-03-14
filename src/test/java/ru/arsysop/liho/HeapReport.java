@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class HeapReport implements Report {
+
 	private final Set<Issue> issues = new HashSet<>();
 
 	@Override

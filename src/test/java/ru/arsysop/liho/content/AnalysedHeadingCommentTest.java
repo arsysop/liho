@@ -3,7 +3,7 @@ package ru.arsysop.liho.content;
 import org.junit.jupiter.api.Test;
 import ru.arsysop.liho.HeapReport;
 import ru.arsysop.liho.TestResource;
-import ru.arsysop.liho.content.analysis.AnalysedContent;
+import ru.arsysop.liho.content.comment.AnalysedHeadingComment;
 import ru.arsysop.liho.content.comment.issues.DuplicatedCopyright;
 import ru.arsysop.liho.content.comment.issues.NoCopyright;
 import ru.arsysop.liho.content.comment.issues.NoLicenseHeader;
@@ -15,16 +15,16 @@ import ru.arsysop.liho.report.IssueLocation;
 
 import java.util.Collections;
 
-final class AnalysedContentTest {
+final class AnalysedHeadingCommentTest {
 
 	@Test
 	void ok() {
-		check("A.java").assertEquals();
+		check(new TestResource("A.java").file()).assertEquals();
 	}
 
 	@Test
 	void noLicenseHeader() {
-		File file = new TestResource("src/org/eclipse/errors/NoLicenseHeader.java").file();
+		File file = new TestResource("src/ru/arsysop/errors/NoLicenseHeader.java").file();
 		check(file).assertEquals(
 				new Issue(new NoLicenseHeader(), new IssueLocation(file.origin(), 1))
 		);
@@ -32,28 +32,27 @@ final class AnalysedContentTest {
 
 	@Test
 	void noCopyright() {
-		File file = new TestResource("src/org/eclipse/errors/NoCopyright.java").file();
+		File file = new TestResource("src/ru/arsysop/errors/NoCopyright.java").file();
 		check(file).assertEquals(
 				new Issue(new NoCopyright(), new IssueLocation(file.origin(), 1))
 		);
-	}@Test
+	}
+
+	@Test
 	void duplicatedCopyright() {
-		File file = new TestResource("src/org/eclipse/errors/DuplicatedCopyright.java").file();
+		File file = new TestResource("src/ru/arsysop/errors/DuplicatedCopyright.java").file();
 		check(file).assertEquals(
 				new Issue(new DuplicatedCopyright(), new IssueLocation(file.origin(), 8))
 		);
 	}
 
-	private HeapReport check(String name) {
-		return check(new TestResource(name).file());
-	}
-
 	private HeapReport check(File file) {
 		HeapReport report = new HeapReport();
-		new AnalysedContent(
+		new AnalysedHeadingComment(
 				new JavaCommentType().comment(file),
 				Collections.singletonList(new CopyrightAnalysis(file))
 		).accept(report);
 		return report;
 	}
+	
 }

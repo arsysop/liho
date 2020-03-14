@@ -16,6 +16,7 @@ import ru.arsysop.liho.content.Content;
 import ru.arsysop.liho.file.File;
 
 public interface CommentType {
+
 	/**
 	 * @param file description of a file to check. Cannot be {@code null}
 	 * @return a sign if the {@linkplain Content} can extract header from the file described or not
@@ -25,7 +26,8 @@ public interface CommentType {
 
 	/**
 	 * @param file source of comment, previously tested for compatibility
-	 * @return lazily-built comment from the {@code file}
+	 * @return lazily-built comment block from the {@code file}
+	 * @since 0.1
 	 */
-	Content comment(File file);
+	HeadingComment comment(File file);
 }

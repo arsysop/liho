@@ -22,7 +22,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class FileFromPathTest {
-	private final TestResource complete = new TestResource("src/org/eclipse/B.java");
+
+	private final TestResource complete = new TestResource("src/ru/arsysop/B.java");
 	private final TestResource noName = new TestResource("res/test/foreign/.rc");
 	private final TestResource noExtension = new TestResource("res/test/foreign/gradlew");
 

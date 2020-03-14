@@ -6,7 +6,7 @@
 report
  - plug reporter
  - implement eclipse: problem view reporter
- - 
+ 
 
 
 config

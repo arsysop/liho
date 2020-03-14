@@ -25,12 +25,12 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public final class TestResource {
 
-	private final Cashed<String, File> file;
-	private final Cashed<String, Path> path;
+	private final Cached<String, File> file;
+	private final Cached<String, Path> path;
 
 	public TestResource(String location) {
-		file = new Cashed<>(location, this::file);
-		path = new Cashed<>(location, this::path);
+		file = new Cached<>(location, this::file);
+		path = new Cached<>(location, this::path);
 	}
 
 	public File file() {

@@ -16,7 +16,7 @@ import ru.arsysop.liho.content.ContentLine;
 import ru.arsysop.liho.report.IssueType;
 import ru.arsysop.liho.report.Report;
 
-interface ContentAnalysis {
+public interface ContentAnalysis {
 
 	void update(ContentLine line);
 
