@@ -28,7 +28,7 @@ public final class IssueLocation {
 	/**
 	 * General file issues (like {@code file is not accessible}) do not have line positioning.
 	 *
-	 * @param file
+	 * @param file path to a source file where the {@code issue} under description is located
 	 */
 	public IssueLocation(Path file) {
 		this(file, -1);
