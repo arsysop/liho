@@ -20,8 +20,9 @@ plugins {
 group = "ru.arsysop"
 version = "0.1"
 
-project.apply{
-    description = "License Header verification tool: checks if license header in all your project source base file fits Eclipse Foundation Project Handbook (https://www.eclipse.org/projects/handbook/#ip-copyright-headers"
+project.apply {
+    description =
+        "License Header verification tool: checks if license header in all your project source base file fits Eclipse Foundation Project Handbook (https://www.eclipse.org/projects/handbook/#ip-copyright-headers"
 }
 
 repositories {
@@ -59,6 +60,19 @@ tasks.jacocoTestReport {
         xml.isEnabled = true
         xml.destination = file("${buildDir}/test-coverage.xml")
     }
+}
+
+tasks.jar {
+
+}
+
+fun extendManifest(mf: Manifest): Unit {
+    mf.attributes(
+        "group" to project.group,
+        "artifact" to project.name,
+        "version" to project.version,
+        "vendor" to "ArSysOp"
+    )
 }
 
 publishing {
