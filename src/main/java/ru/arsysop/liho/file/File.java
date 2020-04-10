@@ -27,10 +27,13 @@ public interface File {
 	Path folder();
 
 	/**
-	 * Lazy guy
+	 * As we need only top part of a file, there is no need to read it to the bottom. Here we initiate a stream of
+	 * lines, encouraging a client to analyse it in the fly and close it asap.
 	 *
-	 * @return
-	 * @throws IOException
+	 * @return lazy stream of file lines
+	 * @throws IOException as any operation on a file system, can decline further processing whenever it wants due to
+	 *                     interface OS reasons
+	 * @see java.nio.file.Files#lines(Path)
 	 */
 	Stream<String> lines() throws IOException;
 }

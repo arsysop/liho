@@ -41,6 +41,10 @@ public final class AnalyzedTree implements Consumer<Path> {
 				report);
 	}
 
+	public AnalyzedTree(Report report) {
+		this(() -> report);
+	}
+
 	@Override
 	public void accept(Path root) {
 		Report report = this.report.get();

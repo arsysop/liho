@@ -54,23 +54,22 @@ import java.util.function.Supplier;
  *
  * <h3>Sample</h3>
  * <h4>1: final field initialization</h4>
- *
+ * <p>Say, you want to get a default user name out of an e-mail address. You want to do this ones,
+ * but also strive to follow the rule <i>no work in constructor</i>.</p>
  * <pre>
- * private final Cashed<Categories> categories =
- * 	new Cashed(source, array -> array.map ( element -> new Category((JSONObject)element) ))
+ * Cached&lt;String, String&gt; user = new Cached&lt;&gt;(
+ * 	"john.doe@somewhere.com",
+ * 	email -&gt; email.substring(0, email.indexOf("@")));
  * </pre>
  *
  * <h4>2: value retrieval</h4>
- *
+ * <p>The retrieval causes actual calculation only for the first call and your code is free of cashing details. </p>
  * <pre>
- *
- * Category byId(String id) {
- * 	return categories.get().find (category -> category.id() == id }
- * }
+ * user.get();
  * </pre>
  *
- * @param S type of data source object
- * @param T type of data retrieved and cashed
+ * @param <S> type of data source object
+ * @param <T> type of data retrieved and cashed
  * @since 0.1
  */
 public final class Cached<S, T> implements Supplier<T> {
@@ -90,4 +89,5 @@ public final class Cached<S, T> implements Supplier<T> {
 		}
 		return value.get(0);
 	}
+
 }

@@ -14,14 +14,14 @@ class AnalyzedTreeTest {
 	@Test
 	void defaultIntegrationOk() {
 		HeapReport report = new HeapReport();
-		new AnalyzedTree(() -> report).accept(new TestResource("ok-bulk-src").path());
+		new AnalyzedTree(report).accept(new TestResource("ok-bulk-src").path());
 		report.assertEquals();
 	}
 
 	@Test
 	void defaultIntegrationNok() {
 		HeapReport report = new HeapReport();
-		new AnalyzedTree(() -> report).accept(new TestResource("nok-bulk-src").path());
+		new AnalyzedTree(report).accept(new TestResource("nok-bulk-src").path());
 		report.assertEquals(
 				new Issue(
 						new NoLicenseHeader(),

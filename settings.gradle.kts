@@ -10,5 +10,4 @@
  * Contributors:
  *   ArSysOp - initial API and implementation
  ********************************************************************************/
-rootProject.name = 'liho'
-
+rootProject.name = "liho"

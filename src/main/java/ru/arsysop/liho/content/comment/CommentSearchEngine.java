@@ -40,6 +40,7 @@ public abstract class CommentSearchEngine {
 	 * <p>Blank line does not affect the state.</p>
 	 *
 	 * @param source comment content piece is to be extracted from the source and appended to the engine's state
+	 * @param position number of a line under analysis
 	 * @throws IllegalStateException on {@code update} attempt for {@code completed} engine
 	 * @throws NullPointerException  if input source is {@code null}
 	 * @since 0.1
@@ -133,6 +134,7 @@ public abstract class CommentSearchEngine {
 	 * Free a content line of comment-symbols, if any
 	 *
 	 * @param line content line
+	 * @return stripped, content-only version of the given {@code line}
 	 * @since 0.1
 	 */
 	protected abstract String strip(String line);
