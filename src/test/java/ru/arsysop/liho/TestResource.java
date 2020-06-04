@@ -12,6 +12,7 @@
  ********************************************************************************/
 package ru.arsysop.liho;
 
+import ru.arsysop.lang.function.CachingFunction;
 import ru.arsysop.liho.file.File;
 import ru.arsysop.liho.file.FileFromPath;
 
@@ -25,12 +26,12 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 public final class TestResource {
 
-	private final Cached<String, File> file;
-	private final Cached<String, Path> path;
+	private final CachingFunction<String, File> file;
+	private final CachingFunction<String, Path> path;
 
 	public TestResource(String location) {
-		file = new Cached<>(location, this::file);
-		path = new Cached<>(location, this::path);
+		file = new CachingFunction<>(location, this::file);
+		path = new CachingFunction<>(location, this::path);
 	}
 
 	public File file() {
