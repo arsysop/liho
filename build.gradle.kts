@@ -29,9 +29,11 @@ repositories {
     mavenCentral()
     mavenLocal()
     jcenter()
+    maven(url = "https://dl.bintray.com/arsysop/lang")
 }
 
 dependencies {
+    implementation("ru.arsysop:ru.arsysop.lang:0.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
@@ -47,6 +49,7 @@ java {
 
 tasks.withType(Test::class) {
     useJUnitPlatform()
+    finalizedBy("jacocoTestReport")
 }
 
 jacoco {
@@ -63,7 +66,7 @@ tasks.jacocoTestReport {
 }
 
 tasks.jar {
-
+    extendManifest(manifest)
 }
 
 fun extendManifest(mf: Manifest): Unit {
