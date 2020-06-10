@@ -22,7 +22,7 @@ plugins {
     java
     jacoco
     `maven-publish`
-    // id("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
+     //id("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
 }
 
 group = "ru.arsysop.liho"
@@ -83,7 +83,7 @@ tasks.jar {
     extendManifest(manifest)
 }
 
-fun extendManifest(mf: Manifest): Unit {
+fun extendManifest(mf: Manifest) {
     mf.attributes(
         "Group" to project.group,
         "Artifact" to project.name,
@@ -105,10 +105,9 @@ fun extendManifest(mf: Manifest): Unit {
 publishing {
     publications {
         repositories {
-            /*maven {
+            maven {
                 url = uri("$buildDir/local-repo")
-            }*/
-            mavenLocal()
+            }
         }
         register<MavenPublication>("gpr") {
             from(components["java"])
