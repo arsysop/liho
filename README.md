@@ -5,7 +5,7 @@
 [![Hits-of-Code](https://hitsofcode.com/github/arsysop/liho)](https://hitsofcode.com/view/github/arsysop/liho)
 [![codecov](https://codecov.io/gh/arsysop/liho/branch/master/graph/badge.svg)](https://codecov.io/gh/arsysop/liho)
 
-[![EPL-2.0 License](https://img.shields.io/badge/License-EPL--2.0-brightgreen.svg)](https://github.com/arsysop/liho/blob/master/LICENSE)
+[![](https://img.shields.io/badge/License-Apache--2.0-brightgreen.svg)](https://github.com/arsysop/liho/blob/master/LICENSE)
 
 LiHo ia a configurable and pluggale **li**cense **h**eader validation t**o**ol. 
 It checks each file of your project sourcebase and reports whether it has valid *copyright header* or not.  
