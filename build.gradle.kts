@@ -1,23 +1,31 @@
-/********************************************************************************
+/*******************************************************************************
  * Copyright (c) 2020 ArSysOp
  *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License 2.0 which is available at
- * https://www.eclipse.org/legal/epl-2.0/.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * SPDX-License-Identifier: EPL-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX-License-Identifier: Apache-2.0
  *
  * Contributors:
- *   ArSysOp - initial API and implementation
- ********************************************************************************/
-
+ *     ArSysOp - initial API and implementation
+ *******************************************************************************/
 plugins {
     java
     jacoco
     `maven-publish`
+    // id("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
 }
 
-group = "ru.arsysop"
+group = "ru.arsysop.liho"
 version = "0.1"
 
 project.apply {
@@ -47,6 +55,12 @@ java {
     withSourcesJar()
 }
 
+/*liho {
+    root.set(project.file("src/main"))
+    strict.set(true)
+    report.set(project.file("$buildDir/liho/report.txt"))
+}*/
+
 tasks.withType(Test::class) {
     useJUnitPlatform()
     finalizedBy("jacocoTestReport")
@@ -71,29 +85,30 @@ tasks.jar {
 
 fun extendManifest(mf: Manifest): Unit {
     mf.attributes(
-        "group" to project.group,
-        "artifact" to project.name,
-        "version" to project.version,
-        "vendor" to "ArSysOp"
+        "Group" to project.group,
+        "Artifact" to project.name,
+        "Version" to project.version,
+        "Bundle-Vendor" to "ArSysOp",
+        "Bundle-Name" to "ru.arsysop.liho",
+        "Bundle-SymbolicName" to "ru.arsysop.liho",
+        "Bundle-Version" to project.version,
+        "Automatic-Module-Name" to "ru.arsysop.liho",
+        "Bundle-ManifestVersion" to "2",
+        "Bundle-RequiredExecutionEnvironment" to "JavaSE-1.8",
+        "Export-Package" to
+                listOf("ru.arsysop.liho.report", "ru.arsysop.liho.bulk")
+                    .map { it + ";version=${project.version}" }
+                    .joinToString(", ")
     )
 }
 
 publishing {
-    /*repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/arsysop/liho")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-            }
-        }
-    }*/
     publications {
         repositories {
-            maven {
-                url = uri("$buildDir/repos")
-            }
+            /*maven {
+                url = uri("$buildDir/local-repo")
+            }*/
+            mavenLocal()
         }
         register<MavenPublication>("gpr") {
             from(components["java"])
