@@ -80,8 +80,12 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.withType(Jar::class) {
+tasks.jar {
     extendManifest(manifest)
+}
+
+tasks.withType(Jar::class) {
+    extendManifestShort(manifest)
     from("README.md", "LICENSE")
 }
 
@@ -91,9 +95,6 @@ tasks.getByName("sourcesJar") {
 
 fun extendManifest(mf: Manifest) {
     mf.attributes(
-        "Group" to project.group,
-        "Artifact" to project.name,
-        "Version" to project.version,
         "Bundle-Vendor" to "ArSysOp",
         "Bundle-Name" to "ru.arsysop.liho",
         "Bundle-SymbolicName" to "ru.arsysop.liho",
@@ -105,6 +106,14 @@ fun extendManifest(mf: Manifest) {
                 listOf("ru.arsysop.liho.report", "ru.arsysop.liho.bulk")
                     .map { it + ";version=${project.version}" }
                     .joinToString(", ")
+    )
+}
+
+fun extendManifestShort(mf: Manifest) {
+    mf.attributes(
+        "Group" to project.group,
+        "Artifact" to project.name,
+        "Version" to project.version
     )
 }
 
