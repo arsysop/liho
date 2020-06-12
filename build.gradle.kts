@@ -22,7 +22,7 @@ plugins {
     java
     jacoco
     `maven-publish`
-    //("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
+    //id("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
 }
 
 group = "ru.arsysop.liho"
