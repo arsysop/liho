@@ -22,7 +22,7 @@ plugins {
     java
     jacoco
     `maven-publish`
-     //id("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
+    //("ru.arsysop.liho.liho-gradle-plugin") version "0.1"
 }
 
 group = "ru.arsysop.liho"
@@ -35,7 +35,6 @@ project.apply {
 
 repositories {
     mavenCentral()
-    mavenLocal()
     jcenter()
     maven(url = "https://dl.bintray.com/arsysop/lang")
 }
@@ -55,11 +54,13 @@ java {
     withSourcesJar()
 }
 
-/*liho {
+/*
+liho {
     root.set(project.file("src/main"))
     strict.set(true)
     report.set(project.file("$buildDir/liho/report.txt"))
-}*/
+}
+*/
 
 tasks.withType(Test::class) {
     useJUnitPlatform()
@@ -79,8 +80,13 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.jar {
+tasks.withType(Jar::class) {
     extendManifest(manifest)
+    from("README.md", "LICENSE")
+}
+
+tasks.getByName("sourcesJar") {
+    (this as Jar).from(sourceSets["test"].allSource)
 }
 
 fun extendManifest(mf: Manifest) {
@@ -117,8 +123,8 @@ publishing {
                 url.set("https://github.com/ArSysOp/liho")
                 licenses {
                     license {
-                        name.set("Eclipse Public License 2.0")
-                        url.set("https://spdx.org/licenses/EPL-2.0.html")
+                        name.set("Apache 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0")
                     }
                 }
                 developers {

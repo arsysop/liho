@@ -34,7 +34,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 
 final class Visitor implements FileVisitor<Path> {
-
+                                    
 	private final CommentTypes types;
 	private final ContentAnalysisFactory analyzers;
 	private final Report report;
