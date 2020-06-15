@@ -28,19 +28,13 @@ plugins {
 group = "ru.arsysop.liho"
 version = "0.1"
 
-project.apply {
-    description =
-        "License Header verification tool: checks if license header in all your project source base file fits Eclipse Foundation Project Handbook (https://www.eclipse.org/projects/handbook/#ip-copyright-headers"
-}
-
 repositories {
     mavenCentral()
     jcenter()
-    maven(url = "https://dl.bintray.com/arsysop/lang")
 }
 
 dependencies {
-    implementation("ru.arsysop:ru.arsysop.lang:0.1")
+    implementation("ru.arsysop.lang:lang:0.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
 }
@@ -94,14 +88,17 @@ tasks.getByName("sourcesJar") {
 }
 
 fun extendManifest(mf: Manifest) {
+    val bundle: String by project
+    val copyright: String by project
     mf.attributes(
         "Bundle-Vendor" to "ArSysOp",
-        "Bundle-Name" to "ru.arsysop.liho",
+        "Bundle-Name" to bundle,
         "Bundle-SymbolicName" to "ru.arsysop.liho",
         "Bundle-Version" to project.version,
         "Automatic-Module-Name" to "ru.arsysop.liho",
         "Bundle-ManifestVersion" to "2",
         "Bundle-RequiredExecutionEnvironment" to "JavaSE-1.8",
+        "Bundle-Copyright" to copyright,
         "Export-Package" to
                 listOf("ru.arsysop.liho.report", "ru.arsysop.liho.bulk")
                     .map { it + ";version=${project.version}" }
@@ -128,7 +125,8 @@ publishing {
             from(components["java"])
             pom {
                 name.set(project.name)
-                description.set(project.description)
+                val explanation: String by project
+                description.set(explanation)
                 url.set("https://github.com/ArSysOp/liho")
                 licenses {
                     license {

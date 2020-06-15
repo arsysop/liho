@@ -23,7 +23,6 @@ pluginManagement {
         gradlePluginPortal()
         mavenLocal()
         jcenter()
-        maven(url = "https://dl.bintray.com/arsysop/lang")
         maven(url = "https://dl.bintray.com/arsysop/liho")
     }
     resolutionStrategy {
