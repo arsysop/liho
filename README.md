@@ -9,7 +9,7 @@
 
 [![](https://img.shields.io/badge/Latest-0.1-OliveDrab.svg)](https://mvnrepository.com/artifact/ru.arsysop.liho/liho/0.1)
 
-LiHo ia a configurable and pluggale **li**cense **h**eader validation t**o**ol. 
+LiHo is a configurable and pluggale **li**cense **h**eader validation t**o**ol. 
 It checks each file of your project sourcebase and reports whether it has valid *copyright header* or not.  
 
 Specially dedicated [section](https://www.eclipse.org/projects/handbook/#ip-copyright-headers) 
